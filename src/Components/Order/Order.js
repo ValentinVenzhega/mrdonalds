@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ButtonCheckout } from '../Style/ButtonCheckout';
 import { OrderListItem } from '../Order/OrderListItem';
 import { totalPriceItems } from '../Functions/secondaryFunction';
+import { formatCurrency } from '../Functions/secondaryFunction';
 
 const OrderStyled = styled.section`
    position: fixed;
@@ -48,10 +49,16 @@ const EmptyList = styled.p`
    text-align: center;
 `;
 
+
+
 export const Order = ({ orders }) => {
 
    const total = orders.reduce((result, order) =>
       totalPriceItems(order) + result, 0);
+
+   const totalCounter = orders.reduce((result, order) =>
+      order.count + result, 0);
+
 
    return(
       <OrderStyled>
@@ -65,9 +72,8 @@ export const Order = ({ orders }) => {
          </OrderContent>
          <Total>
             <span>Итого</span>
-            <span>2</span>
-            <TotalPrice>{total.toLocaleString('ru-RU', 
-               {style: 'currency', currency: 'RUB'})}
+            <span>{totalCounter}</span>
+            <TotalPrice>{formatCurrency(total)}
             </TotalPrice>
          </Total>
          <ButtonCheckout>Оформить</ButtonCheckout>
