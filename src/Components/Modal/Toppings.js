@@ -8,12 +8,10 @@ const ToppingWrap = styled.div`
    column-gap: 15px;
 `;
    
-
 const ToppingLabel = styled.label`
    cursor: pointer;
    display: block;
 `;
-   
 
 const ToppingCheckbox = styled.input`
    cursor: pointer;
