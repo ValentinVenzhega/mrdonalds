@@ -51,7 +51,7 @@ const EmptyList = styled.p`
 
 
 
-export const Order = ({ orders, setOrders }) => {
+export const Order = ({ orders, setOrders, setOpenItem }) => {
 
    const deleteItem = index => {
       const newOrders = orders.filter((item, i) => index !== i);
@@ -76,6 +76,7 @@ export const Order = ({ orders, setOrders }) => {
                   order={order}
                   deleteItem={deleteItem}
                   index={index}
+                  setOpenItem={setOpenItem}
                />)}
             </OrderList> :
             <EmptyList>Список заказов пуст</EmptyList>}
