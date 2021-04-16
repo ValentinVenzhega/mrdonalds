@@ -62,7 +62,7 @@ const TotalPriceItem = styled.div`
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
 
-   const counter = useCount();
+   const counter = useCount(openItem.count);
    const toppings = useToppings(openItem);
    const choices = useChoices(openItem);
    const isEdit = openItem.index > -1;
@@ -84,6 +84,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
       const newOrders = [...orders];
       newOrders[openItem.index] = order;
       setOrders(newOrders);
+      setOpenItem(null);
    }
 
    const addToOrder = () => {
@@ -112,7 +113,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
                <ButtonCheckout 
                onClick={isEdit ? editOrder : addToOrder}
                disabled={order.choices && !order.choice}
-               >Добавить</ButtonCheckout>
+               >{isEdit ? 'Редактировать' : 'Добавить'}</ButtonCheckout>
             </Content>
          </Modal>
       </Overlay>
