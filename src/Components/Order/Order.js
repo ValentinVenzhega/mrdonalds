@@ -4,6 +4,7 @@ import { ButtonCheckout } from '../Style/ButtonCheckout';
 import { OrderListItem } from '../Order/OrderListItem';
 import { totalPriceItems } from '../Functions/secondaryFunction';
 import { formatCurrency } from '../Functions/secondaryFunction';
+import { projection } from '../Functions/secondaryFunction';
 
 const OrderStyled = styled.section`
    position: fixed;
@@ -49,9 +50,26 @@ const EmptyList = styled.p`
    text-align: center;
 `;
 
+const rulesData = {
+   ItemName: ['name'],
+   price: ['price'],
+   count: ['count'],
+   topping: ['topping', arr => arr.filter(obj => obj.checked).map(obj => obj.name),
+      arr => arr.length ? arr : 'no topping'],
+   choice: ['choice', item => item ? item : 'no choice']
+};
 
+export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn, firebaseDatabase }) => {
+   const dataBase = firebaseDatabase();
 
-export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn }) => {
+   const sendOrder = () => {
+      const newOrder = orders.map(projection(rulesData));
+      dataBase.ref('orders').push().set({
+         nameClient: authentication.displayName,
+         email: authentication.email,
+         order: newOrder
+      });
+   };
 
    const deleteItem = index => {
       const newOrders = orders.filter((item, i) => index !== i);
@@ -89,7 +107,7 @@ export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn })
          </Total>
          <ButtonCheckout onClick = {() => {
             if(authentication) {
-               console.log(orders);
+               sendOrder();
             } else {
                logIn();
             }
