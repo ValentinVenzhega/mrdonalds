@@ -25,7 +25,6 @@ function App() {
   const authFirebase = firebase.auth;
 
   const auth = useAuth(authFirebase);
-
   const openItem = useOpenItem();
   const orders = useOrders();
 
@@ -34,7 +33,7 @@ function App() {
     <>
       <GlobalStyle/>
       <NavBar {...auth}/>
-      <Order {...orders} {...openItem}/>
+      <Order {...orders} {...openItem} {...auth}/>
       <Menu {...openItem}/>
       { openItem.openItem && <ModalItem {...openItem} {...orders}/>}
     </>
