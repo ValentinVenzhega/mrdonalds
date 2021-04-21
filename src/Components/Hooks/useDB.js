@@ -9,6 +9,7 @@ export const useDB = (database) => {
          setdb(snapshot.val());
       });
 
+      
    }, [database]);
    return db;
 };
