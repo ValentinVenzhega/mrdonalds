@@ -18,7 +18,6 @@ export const Menu = ({ setOpenItem}) => {
    const res =  useFetch();
    const dbMenu = res.response;
 
-   
    return (
       <MenuStyled>
          <Banner/>
